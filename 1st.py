@@ -30,7 +30,7 @@ dict_e = {}
 a = []
 num = 2
 i = 2
-while num <= 50:
+while num <= 10000:
     number = num
     while i <= num:
         if num % i == 0:
@@ -45,15 +45,19 @@ while num <= 50:
 
 # 구동부
 for i in range(len(dict_e)):
-    prime = driver.find_element_by_xpath('/html/body/form/table/tbody/tr[1]/td[2]/input').send_keys(int(i + 2))
+    driver.find_element_by_xpath('/html/body/form/table/tbody/tr[1]/td[2]/input').send_keys(int(i + 2))
     for j in range(len(dict_e[i + 2])):
         texta += str(dict_e[i + 2][j])
         texta += " "
     texta = texta[0:-1]
-    friction = driver.find_element_by_xpath('/html/body/form/table/tbody/tr[3]/td[2]/textarea').send_keys(texta)
-    clicking = driver.find_element_by_xpath('/html/body/form/input').click()
+    driver.find_element_by_xpath('/html/body/form/table/tbody/tr[3]/td[2]/textarea').send_keys(texta)
+    driver.find_element_by_xpath('/html/body/form/input').click()
     alert_ok = driver.switch_to.alert
     alert_ok.accept()
-    clicking = driver.find_element_by_xpath('/html/body/table/tbody/tr/td[2]/form/input').click()
+    if driver.current_url == "http://114.205.105.8/prime/list.php":
+        driver.find_element_by_xpath('/html/body/table/tbody/tr/td[2]/form/input').click()
+    else:
+        driver.find_element_by_xpath('/html/body/form/table/tbody/tr[1]/td[2]/input').clear()
+        driver.find_element_by_xpath('/html/body/form/table/tbody/tr[3]/td[2]/textarea').clear()
     texta = ""
 
